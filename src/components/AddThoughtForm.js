@@ -4,23 +4,23 @@ import { generateId, getNewExpirationTime } from "../utilities/utilities";
 export function AddThoughtForm(props) {
   const [textInput, setTextInput] = useState("");
 
-  const handleTextChange = event => {
+  const handleTextChange = (event) => {
     console.log(event.target.value);
     setTextInput(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     let thought = {
-        id: generateId(),
-        text: textInput,
-        expiresAt: getNewExpirationTime()
+      id: generateId(),
+      text: textInput,
+      expiresAt: getNewExpirationTime(),
+    };
+    if (textInput.length > 0) {
+      props.addThought(thought);
+      setTextInput("");
     }
-    if(textInput.length > 0) {
-        props.addThought(thought);
-    }
-    setTextInput('');
-  }
+  };
 
   return (
     <form className="AddThoughtForm" onSubmit={handleSubmit}>
@@ -31,7 +31,7 @@ export function AddThoughtForm(props) {
         value={textInput}
         onChange={handleTextChange}
       />
-      <input type="submit"/>
+      <input type="submit" />
     </form>
   );
 }
